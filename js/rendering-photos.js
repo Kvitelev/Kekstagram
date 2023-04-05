@@ -1,5 +1,6 @@
 import {photos} from './data.js';
-import {openPhotoFullSize, addPhotoContent} from './photos-full-size-mode.js'
+import {openPopup} from './util.js';
+import {addPhotoContent, bigPicture} from './photos-full-size-mode.js'
 
 //Находим шаблон и место для вставки элементов.
 const picturesList = document.querySelector('.pictures');
@@ -19,7 +20,7 @@ const renderPhoto = (photos) => {
   photoPreview.addEventListener('click', (evt) => {
     evt.preventDefault();
     addPhotoContent(photos);
-    openPhotoFullSize();
+    openPopup(bigPicture);
   });
 
   return photoPreview;

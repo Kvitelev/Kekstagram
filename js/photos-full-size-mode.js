@@ -1,3 +1,5 @@
+import {closePopup, isEscEvent} from './util.js';
+
 const bigPicture = document.querySelector('.big-picture');
 const pictureCancelBtn = bigPicture.querySelector('#picture-cancel');
 
@@ -19,34 +21,23 @@ const addPhotoContent = (photo) => {
   bigPicture.querySelector('.social__caption').textContent = photo.description;
   bigPicture.querySelector('.comments-count').textContent = photo.comments.length;
 
-  renderComments(photo.comments);
-};
-
-//Открытие полноэкранного режима
-const openPhotoFullSize = () => {
-  bigPicture.classList.remove('hidden');
-  document.body.classList.add('modal-open');
-
   //Временный функционал
   bigPicture.querySelector('.social__comment-count').classList.add('hidden');
   bigPicture.querySelector('.comments-loader').classList.add('hidden');
-}
+
+  renderComments(photo.comments);
+};
 
 //Закрытие полноэкранного изображения
-const closePhotoFullSize = () => {
-  bigPicture.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-};
-pictureCancelBtn.addEventListener('click', closePhotoFullSize);
+pictureCancelBtn.addEventListener('click', () => {
+  closePopup(bigPicture);
+});
 
 //Закрытие полноэкранного изображения при нажатии на клавишу Escape
-const isEscEvent = (evt) => {
-  return evt.key === ('Escape' || 'Esc');
-};
 document.addEventListener('keydown', (evt) => {
   if (isEscEvent(evt)) {
-    closePhotoFullSize();
+    closePopup(bigPicture);
   }
 });
 
-export {addPhotoContent, openPhotoFullSize};
+export {addPhotoContent, bigPicture};
